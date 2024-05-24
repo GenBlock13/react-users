@@ -1,17 +1,15 @@
 import { UserList } from '../components/UserList/UserList'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '../components/ui/Button/Button'
 import { Input } from "../components/ui/Input/Input"
-import { InputRef } from '../components/ui/InputRef/InputRef'
+
 
 export const UsersPage = () => {
   const [visibleUserList, setVisibleUserList] = useState(true)
-
   const [users, setUsers] = useState([])
-  // console.log(users)
-  const [inputValue, setInputValue] = useState('')
-  const inputRef = useRef(null)
-  console.log(inputRef)
+  const [user, setUser] = useState({ firstName: '', lastName: '' })
+  const [inputValueId, setInputValueId] = useState('')
+
 
   const toggleUserList = () => {
     setVisibleUserList(visibleUserList => !visibleUserList)
@@ -28,33 +26,33 @@ export const UsersPage = () => {
     // }
   }, [])
 
-  const changeValue = (event) => {
-    setInputValue(event.target.value)
+  const changeValueId = (event) => {
+    setInputValueId(event.target.value)
   }
 
 
   const addUser = () => {
     const newUser = {
       id: Math.round(Math.random() * 1000),
-      firstName: inputValue,
-      lastName: inputRef.current.value
+      firstName: user.firstName,
+      lastName: user.lastName
     }
-    if (!inputValue) {
-      return
-    }
+    // if (!inputValue) {
+    //   return
+    // }
 
     setUsers([...users, newUser])
-    setInputValue('')
-    inputRef.current.value = ''
+    // setInputValue('')
+    setUser({ firstName: '', lastName: '' })
   }
 
 
-  function kickUser(id) {
-    if (!inputValue) {
+  const kickUser = (id) => {
+    if (!inputValueId) {
       return
     }
-    setUsers(users.filter(user => user.id != id))
-    setInputValue('')
+    setUsers(users.filter(user => user.id !== id))
+    setInputValueId('')
   }
 
   const updateUser = (id) => {
@@ -78,24 +76,35 @@ export const UsersPage = () => {
       <Input
         placeholder="Input name"
         type="text"
-        value={inputValue}
-        onChange={changeValue}
+        value={user.firstName}
+        onChange={e => setUser({ ...user, firstName: e.target.value })}
       />
 
-      <InputRef
-        ref={inputRef}
-        placeholder='Enter last name'
-        type='text'
+      <Input
+        placeholder="Input last name"
+        type="text"
+        value={user.lastName}
+        onChange={e => setUser({ ...user, lastName: e.target.value })}
       />
+
+
 
       <Button
         btnClass='plus'
         onClick={addUser}
       >Add User</Button>
 
+      <Input
+        placeholder="Input ID"
+        type="text"
+        value={inputValueId}
+        onChange={changeValueId}
+      />
+
+
       <Button
         btnClass='minus'
-        onClick={() => kickUser(inputValue)}
+        onClick={() => kickUser(Number(inputValueId))}
       >Delete User</Button>
 
 
