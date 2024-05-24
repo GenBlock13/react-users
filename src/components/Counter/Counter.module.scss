@@ -1,0 +1,23 @@
+.wrap {
+h1 {
+    color: rgb(6, 9, 7);
+    font-size: 12rem;
+    margin: 0;
+    margin-bottom: 20px;
+
+    &.plus {
+      color: #0d3083;
+    }
+
+    &.minus {
+      color: #d82531;
+    }
+  }
+
+  h2 {
+    font-size: 4rem;
+    margin: 0;
+    color: #16bb48;
+    
+  }
+}

@@ -1,0 +1,15 @@
+.input {
+    width: 120px;
+    padding: 5px 15px;
+    margin: 5px 0;
+    border: 2px solid rgb(35, 111, 222);
+    border-radius: 8px;
+    &::placeholder {
+        color: #d5d5d5;
+    }
+
+    &:focus {
+        border: 2px solid purple;
+        outline: none;
+    }
+}
